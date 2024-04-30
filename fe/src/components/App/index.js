@@ -4,12 +4,14 @@ import { Container } from './styles';
 import GlobalStyles from '../../assets/styles/global';
 import defaultTheme from '../../assets/styles/theme/default';
 
+import Header from '../Header';
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
       <Container>
-        Olá Mundo
+        <Header />
       </Container>
     </ThemeProvider>
   );
