@@ -10,7 +10,6 @@ export default function Header() {
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar Contato..." />
       </InputSearchContainer>
-
     </Container>
   );
 }
