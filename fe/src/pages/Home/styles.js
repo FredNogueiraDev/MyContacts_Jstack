@@ -89,7 +89,7 @@ export const Card = styled.div`
       align-items: center;
 
       small {
-        background: ${({ theme }) => theme.color.primary.light};
+        background: ${({ theme }) => theme.color.primary.lighest};
         color: ${({ theme }) => theme.color.primary.dark};
         font-weight: bold;
         padding: 4px;
