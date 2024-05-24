@@ -15,5 +15,13 @@ export default {
       100: '#E6E6E6',
       white: '#fff',
     },
+    danger: {
+      light: '#F97171',
+      main: '#FC5050',
+      dark: '#F6313',
+    },
+    success: {
+      main: '#51CA73',
+    },
   },
 };
