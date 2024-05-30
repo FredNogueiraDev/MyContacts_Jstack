@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Form, ButtonContainer } from './styles';
 
 import isEmailValid from '../../Utils/isEmailValid';
+import useErrors from '../../hooks/useErrors';
 
 import FormGroup from '../FormGroup';
 import Input from '../Input';
@@ -15,52 +16,33 @@ export default function ContactForm({ buttonLabel }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [category, setCategory] = useState('');
-  const [errors, setErrors] = useState([]);
+
+  const { setError, removeError, getErrorMessageByFieldName } = useErrors();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
 
     if (!event.target.value) {
-      setErrors((prevState) => [
-        ...prevState,
-        { field: 'name', message: 'Nome é obrigatório' },
-      ]);
+      setError({ field: 'name', message: 'Nome é obrigatório' });
       return;
     }
-
-    setErrors((prevState) => prevState.filter(
-      (error) => error.field !== 'name',
-    ));
+    removeError('name');
   };
-
   const handleEmailChange = (event) => {
     const { value } = event.target;
+    const insertError = value && !isEmailValid(value);
 
     setEmail(value);
 
-    const insertError = value && !isEmailValid(event.target.value);
-
     if (insertError) {
-      const errorAlreadyExists = errors.find((error) => error.field === 'email');
-      if (errorAlreadyExists) return;
-
-      setErrors((prevState) => [
-        ...prevState,
-        { field: 'email', message: 'E-mail inválido.' },
-      ]);
+      setError({ field: 'email', message: 'E-mail inválido.' });
       return;
     }
 
-    setErrors((prevState) => prevState.filter(
-      (error) => error.field !== 'email',
-    ));
+    removeError('email');
   };
   const handlePhoneChange = (event) => setPhone(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
-
-  function getErrorMessageByFieldName(fieldName) {
-    return errors.find((error) => error.field === fieldName)?.message;
-  }
 
   function handleSubmit(event) {
     event.preventDefault();
