@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-bind */
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Form, ButtonContainer } from './styles';
 
 import FormGroup from '../FormGroup';
@@ -9,32 +10,75 @@ import Button from '../Button';
 
 export default function ContactForm({ buttonLabel }) {
   const [name, setName] = useState('');
-  const emailInput = useRef(null);
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+
+    if (!event.target.value) {
+      setErrors((prevState) => [
+        ...prevState,
+        { field: 'name', message: 'Nome é obrigatório' },
+      ]);
+      return;
+    }
+
+    setErrors((prevState) => prevState.filter(
+      (error) => error.field !== 'name',
+    ));
+  };
+  console.log(errors);
+
+  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handlePhoneChange = (event) => setPhone(event.target.value);
+  const handleCategoryChange = (event) => setCategory(event.target.value);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    console.log(name);
+    console.log(email);
+    console.log(phone);
+    console.log(category);
+  }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <FormGroup>
         <Input
           value={name}
           placeholder="Nome"
-          onChange={(event) => setName(event.target.value)}
+          onChange={handleNameChange}
         />
       </FormGroup>
 
       <FormGroup>
         <Input
+          value={email}
           placeholder="E-mail"
-          ref={emailInput}
+          onChange={handleEmailChange}
         />
       </FormGroup>
 
       <FormGroup>
-        <Input placeholder="Telefone" />
+        <Input
+          value={phone}
+          placeholder="Telefone"
+          onChange={handlePhoneChange}
+        />
       </FormGroup>
 
       <FormGroup>
-        <Select>
+        <Select
+          value={category}
+          onChange={handleCategoryChange}
+        >
+          <option value="">Categoria</option>
           <option value="Instagram">Instagram</option>
+          <option value="Discord">Discord</option>
         </Select>
       </FormGroup>
 
