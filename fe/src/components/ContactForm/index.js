@@ -58,7 +58,9 @@ export default function ContactForm({ buttonLabel }) {
   const handlePhoneChange = (event) => setPhone(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
 
-  console.log(errors);
+  function getErrorMessageByFieldName(fieldName) {
+    return errors.find((error) => error.field === fieldName)?.message;
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -71,16 +73,18 @@ export default function ContactForm({ buttonLabel }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
+          error={getErrorMessageByFieldName('name')}
           value={name}
           placeholder="Nome"
           onChange={handleNameChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          error={getErrorMessageByFieldName('email')}
           value={email}
           placeholder="E-mail"
           onChange={handleEmailChange}
