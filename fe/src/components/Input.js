@@ -11,6 +11,7 @@ export default styled.input`
   outline: none;
   padding: 0 16px;
   font-size: 16px;
+  appearence: none;
 
   &:focus {
     border-color: ${({ theme }) => theme.color.primary.main};
