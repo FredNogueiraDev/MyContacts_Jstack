@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Form, ButtonContainer } from './styles';
 
+import isEmailValid from '../../Utils/isEmailValid';
+
 import FormGroup from '../FormGroup';
 import Input from '../Input';
 import Select from '../Select';
@@ -30,11 +32,33 @@ export default function ContactForm({ buttonLabel }) {
       (error) => error.field !== 'name',
     ));
   };
-  console.log(errors);
 
-  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+
+    setEmail(value);
+
+    const insertError = value && !isEmailValid(event.target.value);
+
+    if (insertError) {
+      const errorAlreadyExists = errors.find((error) => error.field === 'email');
+      if (errorAlreadyExists) return;
+
+      setErrors((prevState) => [
+        ...prevState,
+        { field: 'email', message: 'E-mail inválido.' },
+      ]);
+      return;
+    }
+
+    setErrors((prevState) => prevState.filter(
+      (error) => error.field !== 'email',
+    ));
+  };
   const handlePhoneChange = (event) => setPhone(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
+
+  console.log(errors);
 
   function handleSubmit(event) {
     event.preventDefault();
