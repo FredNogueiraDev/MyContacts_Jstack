@@ -3,7 +3,6 @@ const isValidUUID = require('../utils/isValidUUID');
 
 class ContactController {
   async index(request, response) {
-    // Listar todos os registros
     const { orderBy } = request.query;
     const contacts = await ContactsRepository.findAll(orderBy);
 
