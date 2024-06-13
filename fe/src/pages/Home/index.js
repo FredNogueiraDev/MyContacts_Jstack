@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Container, InputSearchContainer, Header, ListHeader, Card,
 } from './styles';
@@ -9,22 +9,28 @@ import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
 
+import Loader from '../../components/Loader';
+
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredContacts = contacts.filter((contact) => (
+  const filteredContacts = useMemo(() => contacts.filter((contact) => (
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ));
+  )), [contacts, searchTerm]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
       .then(async (res) => {
         const json = await res.json();
         setContacts(json);
       })
-      .catch((err) => { console.log(err); });
+      .catch((err) => { console.log(err); })
+      .finally(() => { setIsLoading(false); });
   }, [orderBy]);
 
   const getContactText = (count) => `${count} ${count === 1 ? 'contato' : 'contatos'}`;
@@ -42,6 +48,8 @@ export default function Home() {
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
+
       <InputSearchContainer>
         <input
           value={searchTerm}
