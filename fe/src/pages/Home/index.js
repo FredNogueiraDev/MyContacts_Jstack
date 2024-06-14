@@ -22,15 +22,19 @@ export default function Home() {
   )), [contacts, searchTerm]);
 
   useEffect(() => {
-    setIsLoading(true);
-
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then(async (res) => {
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`);
         const json = await res.json();
         setContacts(json);
-      })
-      .catch((err) => { console.log(err); })
-      .finally(() => { setIsLoading(false); });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadContacts();
   }, [orderBy]);
 
   const getContactText = (count) => `${count} ${count === 1 ? 'contato' : 'contatos'}`;
