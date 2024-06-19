@@ -10,7 +10,6 @@ class ContactController {
   }
 
   async show(request, response) {
-    // Obter um registro
     const { id } = request.params;
 
     if (!isValidUUID(id)) {
@@ -57,7 +56,6 @@ class ContactController {
   }
 
   async update(request, response) {
-    // Editar um registro
     const { id } = request.params;
     const {
       name, email, phone, category_id,
@@ -93,7 +91,6 @@ class ContactController {
   }
 
   async delete(request, response) {
-    // Deletar um registro
     const { id } = request.params;
 
     if (!isValidUUID(id)) {
@@ -102,10 +99,8 @@ class ContactController {
 
     await ContactsRepository.delete(id);
 
-    // 204: Not Content
     response.sendStatus(204);
   }
 }
 
-// Singleton
 module.exports = new ContactController();

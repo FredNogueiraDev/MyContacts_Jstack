@@ -37,7 +37,6 @@ class CategoryController {
 
     await CategoryRepository.delete(id);
 
-    // 204: Not Content
     response.sendStatus(204);
   }
 }

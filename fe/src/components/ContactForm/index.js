@@ -57,11 +57,6 @@ export default function ContactForm({ buttonLabel }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    // console.log(name);
-    // console.log(email);
-    // console.log(phone);
-    // console.log(category);
   }
 
   return (
