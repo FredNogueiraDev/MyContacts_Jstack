@@ -26,8 +26,10 @@ export const InputSearchContainer = styled.div`
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ justifyContent }) => justifyContent};
   margin-top: 32px;
+  border-bottom: 2px solid ${({ theme }) => theme.color.gray[100]};
+  padding-bottom: 16px;
 
   strong {
     font-size: 24px;
@@ -119,4 +121,39 @@ export const Card = styled.div`
       margin-left: 8px;
     }
   }
+`;
+
+export const ErrorContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+
+  .details {
+    margin-left:24px;
+
+    strong {
+      font-size: 20px;
+      color: ${({ theme }) => theme.color.danger.main};
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+`;
+
+export const EmptyListContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    text-align: center;
+    color: ${({ theme }) => theme.color.gray[200]};
+    margin-top 8px;
+
+    strong {
+      color: ${({ theme }) => theme.color.primary.main};
+    }
+  }
+
 `;
