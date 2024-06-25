@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import {
   useEffect, useMemo, useState, useCallback,
 } from 'react';
+
 import {
   Container, InputSearchContainer, Header, ListHeader, Card, ErrorContainer, EmptyListContainer,
+  SearchNotFoundContainer,
 } from './styles';
 
 import arrow from '../../assets/images/arrow.svg';
@@ -13,6 +15,7 @@ import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
 import sad from '../../assets/images/sad.svg';
 import emptyBox from '../../assets/images/empty-box.svg';
+import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
@@ -111,24 +114,31 @@ export default function Home() {
 
       {(!hasError && !isLoading) && (
         <>
-          {filteredContacts.length > 0
-            ? (
-              <ListHeader orderBy={orderBy}>
-                <button type="button" onClick={handleToggleOrderBy}>
-                  <span>Nome</span>
-                  <img src={arrow} alt="Arrow" />
-                </button>
-              </ListHeader>
-            )
-            : (
-              <EmptyListContainer>
-                <img src={emptyBox} alt="Caixa Vazia" />
-                <p>
-                  Você ainda não tem nenhum contato cadastrado!
-                  Clique no botão <strong>”Novo contato”</strong> e faça um cadastro!
-                </p>
-              </EmptyListContainer>
-            )}
+          {filteredContacts.length > 0 && (
+            <ListHeader orderBy={orderBy}>
+              <button type="button" onClick={handleToggleOrderBy}>
+                <span>Nome</span>
+                <img src={arrow} alt="Arrow" />
+              </button>
+            </ListHeader>
+          )}
+
+          {(contacts.length > 0 && filteredContacts.length === 0) && (
+            <SearchNotFoundContainer>
+              <img src={magnifierQuestion} alt="magnifierQuestion" />
+              <span>Nenhum resultado foi encontrado para <strong>”{searchTerm}”</strong>.</span>
+            </SearchNotFoundContainer>
+          )}
+
+          {contacts.length === 0 && (
+          <EmptyListContainer>
+            <img src={emptyBox} alt="Caixa Vazia" />
+            <p>
+              Você ainda não tem nenhum contato cadastrado!
+              Clique no botão <strong>”Novo contato”</strong> e faça um cadastro!
+            </p>
+          </EmptyListContainer>
+          )}
 
           {filteredContacts.map((contact) => (
             <Card key={contact.id}>
