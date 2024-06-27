@@ -12,8 +12,14 @@ export default styled.select`
   padding: 0 16px;
   font-size: 16px;
   appearence: none;
+  -webkit-appearance: none !important;
 
   &:focus {
     border-color: ${({ theme }) => theme.color.primary.main};
+  }
+
+  &[disabled] {
+    background: ${({ theme }) => theme.color.gray[100]};
+    border-color: ${({ theme }) => theme.color.gray[100]};
   }
 `;
