@@ -1,25 +1,29 @@
 import styled from 'styled-components';
 
 export default styled.select`
-  width: 100%;
+
   border: none;
-  background: ${({ theme }) => theme.color.gray.white};
-  border: 2px solid ${({ theme }) => theme.color.gray.white};
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  width: 100%;
   height: 52px;
-  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   outline: none;
   padding: 0 16px;
   font-size: 16px;
-  appearence: none;
-  -webkit-appearance: none !important;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease-in;
+  appearance: none; // Evita o css dos dispositivos mobile (e também desktop) pegar os estilos padrões.
+
+  border-color: ${({ theme, error }) => error && theme.colors.danger.main};
 
   &:focus {
-    border-color: ${({ theme }) => theme.color.primary.main};
+    border-color: ${({ theme }) => theme.colors.primary.main};
   }
 
   &[disabled] {
-    background: ${({ theme }) => theme.color.gray[100]};
-    border-color: ${({ theme }) => theme.color.gray[100]};
+    background-color: ${({ theme }) => theme.colors.gray[100]};
+    opacity: 1;
   }
+
 `;

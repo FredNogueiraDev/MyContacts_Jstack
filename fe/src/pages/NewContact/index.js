@@ -1,29 +1,20 @@
 import PageHeader from '../../components/PageHeader';
+
 import ContactForm from '../../components/ContactForm';
-import ContactsService from '../../services/ContactsServices';
+import useNewContact from './useNewContact';
 
 export default function NewContact() {
-  async function handleSubmit(formData) {
-    try {
-      const contact = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        category_id: formData.categoryId,
-      };
-
-      const response = await ContactsService.createContact(contact);
-
-      console.log(response);
-    } catch (e) {
-      alert(e);
-    }
-  }
+  const {
+    contactFormRef,
+    handleSubmit,
+  } = useNewContact();
 
   return (
     <>
       <PageHeader title="Novo contato" />
+
       <ContactForm
+        ref={contactFormRef}
         buttonLabel="Cadastrar"
         onSubmit={handleSubmit}
       />

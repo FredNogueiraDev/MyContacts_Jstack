@@ -1,20 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Sora', sans-serif
+    font-family: 'Sora', sans-serif;
+
   }
 
   body {
-    background: ${({ theme }) => theme.color.background};
+    background: ${({ theme }) => theme.colors.background};
     font-size: 16px;
-    color: ${({ theme }) => theme.color.gray[900]};
+    color: ${({ theme }) => theme.colors[900]}
   }
 
   button {
     cursor: pointer;
   }
+
 `;

@@ -1,50 +1,71 @@
 import APIError from '../../errors/APIError';
 
-class HttpClient {
-  constructor(baseURL) {
-    this.baseURL = baseURL;
+export default class HttpClient {
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
   }
 
-  async get(path) {
-    let body = null;
-    const res = await fetch(`${this.baseURL}${path}`);
-
-    const contentType = res.headers.get('content-type');
-
-    if (contentType.includes('application/json')) {
-      body = await res.json();
-    }
-
-    if (res.ok) {
-      return body;
-    }
-
-    throw new APIError(res, body);
-  }
-
-  async post(path, body) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
+  get(path, options) {
+    return this.makeRequest(path, {
+      method: 'GET',
+      headers: options?.headers,
+      signal: options?.signal,
     });
+  }
 
-    const res = await fetch(`${this.baseURL}${path}`, {
+  post(path, options) {
+    return this.makeRequest(path, {
       method: 'POST',
-      body: JSON.stringify(body),
+      body: options?.body,
+      headers: options?.headers,
+    });
+  }
+
+  put(path, options) {
+    return this.makeRequest(path, {
+      method: 'PUT',
+      body: options?.body,
+      headers: options?.headers,
+    });
+  }
+
+  delete(path, options) {
+    return this.makeRequest(path, {
+      method: 'DELETE',
+      headers: options?.headers,
+    });
+  }
+
+  async makeRequest(path, options) {
+    const headers = new Headers();
+
+    if (options.body) {
+      headers.append('Content-Type', 'application/json');
+    }
+
+    if (options.headers) {
+      Object.entries(options.headers).forEach(([key, value]) => {
+        headers.append(key, value);
+      });
+    }
+
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: options.method,
+      body: JSON.stringify(options.body),
       headers,
+      signal: options.signal,
     });
 
     let responseBody = null;
-    const contentType = res.headers.get('content-type');
-    if (contentType.includes('application/json')) {
-      responseBody = await res.json();
+    const contentType = response.headers.get('Content-Type');
+    if (contentType?.includes('application/json')) {
+      responseBody = await response.json();
     }
 
-    if (res.ok) {
+    if (response.ok) {
       return responseBody;
     }
 
-    throw new APIError(res, responseBody);
+    throw new APIError(response, responseBody);
   }
 }
-
-export default HttpClient;

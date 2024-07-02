@@ -1,26 +1,27 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-margin-bottom: 24px;
+  margin-bottom: 24px;
 
- a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+  a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-  span {
-    color: ${({ theme }) => theme.color.primary.main};
-    font-weight: bold;
+    span {
+      color: ${({ theme }) => theme.colors.primary.main};
+      font-weight: bold;
+    }
+
+    img {
+      margin-right: 8px;
+      transform: rotate(-90deg);
+    }
   }
 
-  img {
-    margin-right: 8px;
-    transform: rotate(-90deg)
+  h1 {
+    font-size: 24px;
   }
- }
-
- h1 {
-  font-size: 24px;
- }
 
 `;

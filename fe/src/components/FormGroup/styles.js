@@ -6,7 +6,7 @@ export const Container = styled.div`
   }
 
   small {
-    color: ${({ theme }) => theme.color.danger.main};
+    color: ${({ theme }) => theme.colors.danger.main};
     font-size: 12px;
     display: block;
     margin-top: 8px;
@@ -17,8 +17,9 @@ export const Container = styled.div`
 
     .loader {
       position: absolute;
-      right: 16px;
       top: 18px;
+      right: 16px;
     }
   }
+
 `;
