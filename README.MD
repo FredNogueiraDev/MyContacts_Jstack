@@ -4,7 +4,7 @@
 
 ## Sobre
 
-Projeto desenvolvido para exercitar meus conhecimentos em **React**.
+Projeto desenvolvido para exercitar meus conhecimentos em **React, Docker e PostgresSQL**.
 
 ## Imagens
 
