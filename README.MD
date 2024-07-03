@@ -8,7 +8,13 @@ Projeto desenvolvido para exercitar meus conhecimentos em **React**.
 
 ## Imagens
 
-![home](https://github.com/FredNogueiraDev/MyContacts_Jstack/assets/102488476/f4e5443a-109f-49d3-9e76-884fb9476bbe)
+![home](https://github.com/FredNogueiraDev/MyContacts_Jstack/assets/102488476/aa55f5a3-864c-47fc-abc7-1e9469d3990b)
+
+![newContact](https://github.com/FredNogueiraDev/MyContacts_Jstack/assets/102488476/451860b9-61d7-4ebf-a191-c7819c434721)
+
+![editContact](https://github.com/FredNogueiraDev/MyContacts_Jstack/assets/102488476/915729ee-420f-4fda-88d3-b7d3c182dd35)
+
+![modalDelete](https://github.com/FredNogueiraDev/MyContacts_Jstack/assets/102488476/ad97c6e1-61a9-471c-90bd-c612af8e7faf)
 
 - **Este é um projeto educacional!**
 
